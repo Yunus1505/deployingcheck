@@ -1,11 +1,286 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hurmatli Ustozimga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --doska: #1F3B2C;
+    --doska2: #254633;
+    --bor: #F5F1E6;
+    --sariq: #EFD9A6;
+    --yogoch: #6B4A32;
+    --xira: rgba(245,241,230,.55);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+  body{
+    margin: 0;
+    background: var(--doska);
+    color: var(--bor);
+    font-family: 'Inter', sans-serif;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .sahifa { max-width: 660px; margin: 0 auto; padding: 4rem 1.4rem 3rem; }
+  .blok { margin-bottom: 3.2rem; }
+
+  .sana-yozuvi{
+    font-size: .9rem;
+    color: var(--sariq);
+    text-align: center;
+    margin: 0 0 .8rem;
+  }
+
+  .katta-sarlavha{
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    text-align: center;
+    font-size: clamp(2.6rem, 9vw, 4rem);
+    line-height: 1.15;
+    margin: 0 0 .3rem;
+  }
+
+  .qisqa-matn{
+    text-align: center;
+    font-size: 1rem;
+    color: var(--xira);
+    max-width: 36ch;
+    margin: 0 auto;
+  }
+
+  .xat-joyi { text-align: center; }
+
+  .xat-tugmasi{
+    display: inline-block;
+    cursor: pointer;
+    background: var(--yogoch);
+    border: none;
+    color: var(--bor);
+    font: inherit;
+    font-size: 1rem;
+    padding: 1rem 1.6rem;
+    border-radius: 4px;
+  }
+  .xat-tugmasi:focus-visible { outline: 2px solid var(--sariq); outline-offset: 2px; }
+
+  .xat-varaq{
+    display: none;
+    background: var(--doska2);
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 6px;
+    margin-top: 1.2rem;
+    padding: 1.6rem;
+    text-align: left;
+  }
+  .xat-varaq.ochiq{
+    display: block;
+    animation: paydo-bolish .25s ease;
+  }
+  .xat-varaq p{
+    font-family: 'Caveat', cursive;
+    font-size: 1.4rem;
+    line-height: 1.5;
+    color: var(--sariq);
+    margin: 0 0 .8rem;
+  }
+  .xat-imzo{ color: var(--bor); font-size: 1.2rem; opacity: .8; }
+
+  .kichik-sarlavha{
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: 1.9rem;
+    text-align: center;
+    margin: 0 0 1.4rem;
+    color: var(--sariq);
+  }
+
+  .karta-qatori{
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 600px){
+    .karta-qatori { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .xotira-kartasi{
+    background: var(--doska2);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+    cursor: pointer;
+  }
+  .xotira-kartasi .sarlavha-matni{
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+  }
+  .xotira-kartasi .ich-matni{
+    display: none;
+    font-size: .92rem;
+    line-height: 1.4;
+    color: var(--xira);
+    margin-top: .6rem;
+  }
+  .xotira-kartasi.ochiq .ich-matni{
+    display: block;
+    animation: paydo-bolish .25s ease;
+  }
+
+  .tilak-tugmasi{
+    display: block;
+    margin: 0 auto;
+    font: inherit;
+    font-size: 1rem;
+    color: var(--doska);
+    background: var(--sariq);
+    border: none;
+    border-radius: 4px;
+    padding: .85rem 1.6rem;
+    cursor: pointer;
+  }
+  .tilak-tugmasi.korinmas { display: none; }
+
+  .tilaklar-royxati{
+    display: grid;
+    gap: .9rem;
+    margin-top: 1.4rem;
+  }
+  .bitta-tilak{
+    font-family: 'Caveat', cursive;
+    font-size: 1.3rem;
+    color: var(--bor);
+    border-left: 2px solid var(--sariq);
+    padding-left: 1rem;
+    opacity: 0;
+    animation: paydo-bolish .4s ease forwards;
+  }
+  @keyframes paydo-bolish{
+    to { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .xat-varaq, .xotira-kartasi .ich-matni, .bitta-tilak{
+      transition: none;
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  .pastki-qism{
+    text-align: center;
+    font-size: .85rem;
+    color: var(--xira);
+    padding-bottom: 2rem;
+  }
+</style>
 </head>
 <body>
-    
+<div class="sahifa">
+
+  <div class="blok">
+    <p class="sana-yozuvi">1-oktyabr — O'qituvchi va murabbiylar kuni</p>
+    <h1 class="katta-sarlavha">Rahmat, Ustoz</h1>
+    <p class="qisqa-matn">Bugun Sizga so'zlarimiz orqali minnatdorchilik bildirmoqchimiz.</p>
+  </div>
+
+  <div class="blok xat-joyi">
+    <button class="xat-tugmasi" id="xatTugmasi">✉ Xatni ochish</button>
+    <div class="xat-varaq" id="xatVarag">
+      <p>Ustoz, sinf xonasiga har kirganingizda bilim bilan birga umid ham olib kirardingiz.</p>
+      <p>Bizga formulalarni emas — qiyinchilikka qanday qarashni o'rgatdingiz.</p>
+      <p>Yillar o'tadi, lekin Sizning ovozingiz hamon yodimizda.</p>
+      <p class="xat-imzo">— minnatdor shogirdlaringiz</p>
+    </div>
+  </div>
+
+  <div class="blok">
+    <h2 class="kichik-sarlavha">Uch lahza, uch xotira</h2>
+    <div class="karta-qatori">
+      <div class="xotira-kartasi" tabindex="0">
+        <div class="sarlavha-matni">Birinchi dars</div>
+        <div class="ich-matni">Sizning birinchi darsingizdan keyin fanni yaxshi ko'rib qoldim.</div>
+      </div>
+      <div class="xotira-kartasi" tabindex="0">
+        <div class="sarlavha-matni">Qiyin kun</div>
+        <div class="ich-matni">Eng tushkun kunimda "uddalaysan" degan so'zingiz kuch berdi.</div>
+      </div>
+      <div class="xotira-kartasi" tabindex="0">
+        <div class="sarlavha-matni">Bugun</div>
+        <div class="ich-matni">Bugun kim bo'lishimda Sizning ulushingiz katta.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="blok">
+    <h2 class="kichik-sarlavha">Tilaklarimiz</h2>
+    <button class="tilak-tugmasi" id="tilakTugmasi">Ochish</button>
+    <div class="tilaklar-royxati" id="tilaklarJoyi"></div>
+  </div>
+
+  <div class="blok" style="text-align:center;">
+    <p class="qisqa-matn">1-oktyabr — O'qituvchi va murabbiylar kuni bilan!</p>
+  </div>
+
+</div>
+
+<p class="pastki-qism">Chin qalbdan, shogirdlaringizdan</p>
+
+<script>
+  var xatTugmasi = document.getElementById('xatTugmasi');
+  var xatVarag = document.getElementById('xatVarag');
+
+  xatTugmasi.addEventListener('click', function(){
+    xatVarag.classList.toggle('ochiq');
+    if (xatVarag.classList.contains('ochiq')){
+      xatTugmasi.textContent = '✉ Xatni yopish';
+    } else {
+      xatTugmasi.textContent = '✉ Xatni ochish';
+    }
+  });
+
+  var barchaKartalar = document.querySelectorAll('.xotira-kartasi');
+  barchaKartalar.forEach(function(karta){
+    function ochib_yopish(){
+      karta.classList.toggle('ochiq');
+    }
+    karta.addEventListener('click', ochib_yopish);
+    karta.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        ochib_yopish();
+      }
+    });
+  });
+
+  var tilaklarMatni = [
+    "Sizning sabringiz — bizga eng katta dars bo'ldi.",
+    "Bilim bergandan ko'ra, fikrlashni o'rgatganingiz uchun rahmat.",
+    "Sizdek ustoz bo'lish — haqiqiy baxt ekanini bilamiz endi.",
+    "Ushbu kun — Sizga bo'lgan minnatdorchiligimizning bir zarrasi."
+  ];
+
+  var tilakTugmasi = document.getElementById('tilakTugmasi');
+  var tilaklarJoyi = document.getElementById('tilaklarJoyi');
+
+  tilakTugmasi.addEventListener('click', function(){
+    tilakTugmasi.classList.add('korinmas');
+    tilaklarMatni.forEach(function(matn){
+      var yangiBlok = document.createElement('div');
+      yangiBlok.className = 'bitta-tilak';
+      yangiBlok.textContent = matn;
+      tilaklarJoyi.appendChild(yangiBlok);
+    });
+  });
+</script>
 </body>
 </html>
+```
